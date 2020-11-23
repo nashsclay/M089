@@ -1,4 +1,10 @@
 #!/bin/bash
+
+#!/bin/bash
+if [ $user_id 0 ]; then
+    echo " kfx"
+    exit 1
+fi
 cd ~
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -247,6 +253,8 @@ fi
 echo ""
 echo "provided by Matze089 for the strong KFX Community"
 exec bash
-exit
+
+   exit 1
+fi
 
 
