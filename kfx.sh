@@ -12,6 +12,12 @@ NC='\033[0m'
 if [[ $(lsb_release -d) = *16.04* ]]; then
   COINZIP='https://github.com/KnoxFS/kfx-wallet/releases/download/3.2.0/kfx-3.2.0-x86_64-Linux.tar.gz'
 fi
+
+if [[ $(lsb_release -d) = *20.04* ]]; then
+  COINZIP='https://github.com/KnoxFS/kfx-wallet/releases/download/3.2.0/kfx-3.2.0-x86_64-Linux.tar.gz'
+fi
+
+
 if [[ $(lsb_release -d) = *18.04* ]]; then
   COINZIP='https://github.com/KnoxFS/kfx-wallet/releases/download/3.2.0/kfx-3.2.0-x86_64-Linux.tar.gz'
 fi
@@ -20,7 +26,8 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-delion
+kfx
+
 
 function configure_systemd {
   cat << EOF > /etc/systemd/system/kfx.service
