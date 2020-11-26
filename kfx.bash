@@ -73,7 +73,7 @@ read DO
 echo ""
 if [ $DO = "4" ]
 then
-ALIASES=$(find /root/.delion_* -maxdepth 0 -type d | cut -c22-)
+ALIASES=$(find /root/.kfx_* -maxdepth 0 -type d | cut -c22-)
 echo -e "${GREEN}${ALIASES}${NC}"
 echo ""
 echo "1 - Create new nodes"
@@ -137,11 +137,11 @@ echo "2 - Expert mode"
 echo "Please select a option:"
 read EE
 echo ""
-if [ $EE = "1" ] 
+if [ $EE = "1" ]
 then
 MAXC="16"
 fi
-if [ $EE = "2" ] 
+if [ $EE = "2" ]
 then
 echo ""
 echo "Enter max connections value"
@@ -151,16 +151,16 @@ DOSETUP="y"
 if [ $DOSETUP = "y" ]
 then
   echo -e "Installing ${BLUE} KFX coin dependencies${NC}. Please wait."
-  sudo apt-get update 
+  sudo apt-get update
   sudo apt-get -y upgrade
   sudo apt-get -y dist-upgrade
   sudo apt-get update
-  sudo apt-get install build-essential libtool autotools-dev autoconf pkg-config libssl-dev libboost-all-dev libminiupnpc-dev software-properties-common -y && add-apt-repository ppa:bitcoin/bitcoin && apt-get update -y && apt-get install libdb4.8-dev libdb4.8++-dev libminiupnpc-dev libzmq3-dev libevent-pthreads-2.0-5 zip unzip bc curl nano -y
-  sleep 2
+sudo apt-get install build-essential libtool autotools-dev autoconf pkg-config libssl-dev libboost-all-dev libminiupnpc-dev software-properties-common -y && add-apt-repository ppa:bitcoin/bitcoin && apt-get update -y && apt-get install libdb4.8-dev libdb4.8++-dev libminiupnpc-dev libzmq3-dev libevent-pthreads-2.0-5 zip unzip bc curl nano -y
+sleep 2
   cd
-  chmod +x /root/kfx/*
-  sudo cp -R  /root/kfx/* /usr/local/bin
-  mkdir -p ~/kfxbin 
+  chmod +x /root/.kfx/*
+  sudo cp -R  /root/.kfx/* /usr/local/bin
+  mkdir -p ~/kfxbin
   echo 'export PATH=~/kfxbin:$PATH' > ~/.bash_aliases
   source ~/.bashrc
   echo ""
@@ -183,13 +183,13 @@ while [  $COUNTER -lt $MNCOUNT ]; do
   echo ""
   echo "Enter alias for new node"
   read ALIAS
-  CONF_DIR=~/.delion_$ALIAS
+  CONF_DIR=~/.kfx_$ALIAS
   echo ""
   echo "Enter masternode private key for node $ALIAS"
   read PRIVKEY
   mkdir ~/.kfx_$ALIAS
-  cp -R /root/delionsnapshot/* ~/.delion_$ALIAS
-  echo '#!/bin/bash' > ~/delionbin/deliond_$ALIAS.sh
+  cp -R /root/kfxsnapshot/* ~/.kfx_$ALIAS
+  echo '#!/bin/bash' > ~/kfxbin/kfxd_$ALIAS.sh
   echo "kfxd -daemon -conf=$CONF_DIR/kfx.conf -datadir=$CONF_DIR "'$*' >> ~/kfxbin/kfxd_$ALIAS.sh
   echo '#!/bin/bash' > ~/kfxbin/kfx-cli_$ALIAS.sh
   echo "kfx-cli -conf=$CONF_DIR/kfx.conf -datadir=$CONF_DIR "'$*' >> ~/kfxbin/kfx-cli_$ALIAS.sh
@@ -211,7 +211,7 @@ while [  $COUNTER -lt $MNCOUNT ]; do
   echo "" >> kfx.conf_TEMP
   echo "" >> kfx.conf_TEMP
   echo "bind=$IP6" >> kfx.conf_TEMP
-  echo "port=$PORTD" >> kfx.conf_TEMP
+ echo "port=$PORTD" >> kfx.conf_TEMP
   echo "externalip=$IP6:$PORT" >> kfx.conf_TEMP
   echo "masternodeaddr=$IP6:$PORT" >> kfx.conf_TEMP
   echo "masternodeprivkey=$PRIVKEY" >> kfx.conf_TEMP
@@ -224,15 +224,15 @@ while [  $COUNTER -lt $MNCOUNT ]; do
   echo ""
   echo -e "Your ip is ${GREEN}$IP6:$PORT${NC}"
   COUNTER=$((COUNTER+1))
-	echo "alias ${ALIAS}_status=\"kfx-cli -datadir=/root/.delion_$ALIAS masternode status\"" >> .bashrc
-	echo "alias ${ALIAS}_stop=\"systemctl stop kfxd$ALIAS\"" >> .bashrc
-	echo "alias ${ALIAS}_start=\"systemctl start kfxd$ALIAS\""  >> .bashrc
-	echo "alias ${ALIAS}_config=\"nano /root/.kfx_${ALIAS}/kfx.conf\""  >> .bashrc
-	echo "alias ${ALIAS}_getinfo=\"kfx-cli -datadir=/root/.kfx_$ALIAS getinfo\"" >> .bashrc
-	echo "alias ${ALIAS}_resync=\"/root/kfxbin/kfxd_$ALIAS -resync\"" >> .bashrc
-	echo "alias ${ALIAS}_reindex=\"/root/kfxbin/deliond_$ALIAS -reindex\"" >> .bashrc
-	## Config Systemctl
-	configure_systemd
+        echo "alias ${ALIAS}_status=\"kfx-cli -datadir=/root/.kfx_$ALIAS masternode status\"" >> .bashrc
+        echo "alias ${ALIAS}_stop=\"systemctl stop kfxd$ALIAS\"" >> .bashrc
+        echo "alias ${ALIAS}_start=\"systemctl start kfxd$ALIAS\""  >> .bashrc
+        echo "alias ${ALIAS}_config=\"nano /root/.kfx_${ALIAS}/kfx.conf\""  >> .bashrc
+        echo "alias ${ALIAS}_getinfo=\"kfx-cli -datadir=/root/.kfx_$ALIAS getinfo\"" >> .bashrc
+        echo "alias ${ALIAS}_resync=\"/root/kfxbin/kfxd_$ALIAS -resync\"" >> .bashrc
+        echo "alias ${ALIAS}_reindex=\"/root/kfxbin/kfxd_$ALIAS -reindex\"" >> .bashrc
+        ## Config Systemctl
+        configure_systemd
 done
 echo ""
 echo "Commands:"
@@ -248,6 +248,3 @@ echo ""
 echo "provided by Matze089 for the strong KFX Community"
 exec bash
 exit
-
-
-
