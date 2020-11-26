@@ -23,8 +23,6 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-kfx
-
 if [[ $(lsb_release -d) != *20.04* ]]; then
   echo -e "${RED}You are not running Ubuntu 20.04. Installation could be cancelled.${NC}"
   exit 1
@@ -64,6 +62,7 @@ EOF
 }
 
 clear
+echo "KnoxFS Masternode Script"
 echo "1 - Create new nodes"
 echo "2 - Remove an existing node"
 echo "3 - Upgrade an existing node"
