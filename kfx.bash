@@ -75,6 +75,7 @@ then
 ALIASES=$(find /root/.kfx_* -maxdepth 0 -type d | cut -c22-)
 echo -e "${GREEN}${ALIASES}${NC}"
 echo ""
+echo "KnoxFS Masternode Script"
 echo "1 - Create new nodes"
 echo "2 - Remove an existing node"
 echo "3 - Upgrade an existing node"
@@ -149,7 +150,7 @@ fi
 DOSETUP="y"
 if [ $DOSETUP = "y" ]
 then
-  echo -e "Installing ${BLUE} KFX coin dependencies${NC}. Please wait."
+  echo -e "Installing ${BLUE}KFX coin dependencies${NC}. Please wait."
   sudo apt-get update
   sudo apt-get -y upgrade
   sudo apt-get -y dist-upgrade
@@ -210,7 +211,7 @@ while [  $COUNTER -lt $MNCOUNT ]; do
   echo "" >> kfx.conf_TEMP
   echo "" >> kfx.conf_TEMP
   echo "bind=$IP6" >> kfx.conf_TEMP
- echo "port=$PORTD" >> kfx.conf_TEMP
+  echo "port=$PORTD" >> kfx.conf_TEMP
   echo "externalip=$IP6:$PORT" >> kfx.conf_TEMP
   echo "masternodeaddr=$IP6:$PORT" >> kfx.conf_TEMP
   echo "masternodeprivkey=$PRIVKEY" >> kfx.conf_TEMP
